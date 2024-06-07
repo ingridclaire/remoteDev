@@ -18,15 +18,18 @@ import SortingControls from "./SortingControls";
 function App() {
   const [jobItems, setJobItems] = useState<TJobItem[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (!searchTerm) return;
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const res = await fetch(`${base_url}?search=${searchTerm}`);
         const data = await res.json();
         console.log(data);
         setJobItems(data.jobItems);
+        setIsLoading(false);
       } catch (err) {
         console.error(err);
       }
@@ -50,7 +53,7 @@ function App() {
             <ResultsCount />
             <SortingControls />
           </SidebarTop>
-          <JobList jobItems={jobItems} />
+          <JobList jobItems={jobItems} isLoading={isLoading} />
           <PaginationControls />
         </Sidebar>
         <JobItemContent />
