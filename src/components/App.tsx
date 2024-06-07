@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Background from "./Background";
 import Container from "./Container";
 import Footer from "./Footer";
 import Header, { HeaderTop } from "./Header";
-import { base_url } from "../lib/constants";
-import { TJobItem } from "../lib/types";
 import BookmarksButton from "./BookmarksButton";
 import Logo from "./Logo";
 import SearchForm from "./SearchForm";
@@ -18,7 +16,7 @@ import { useJobItems } from "../lib/hooks";
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
-  const { jobItems, isLoading } = useJobItems(searchTerm);
+  const [jobItems, isLoading] = useJobItems(searchTerm);
 
   return (
     <>
