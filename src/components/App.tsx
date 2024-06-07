@@ -14,28 +14,11 @@ import JobList from "./JobList";
 import PaginationControls from "./PaginationControls";
 import ResultsCount from "./ResultsCount";
 import SortingControls from "./SortingControls";
+import { useJobItems } from "../lib/hooks";
 
 function App() {
-  const [jobItems, setJobItems] = useState<TJobItem[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    if (!searchTerm) return;
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        const res = await fetch(`${base_url}?search=${searchTerm}`);
-        const data = await res.json();
-        console.log(data);
-        setJobItems(data.jobItems);
-        setIsLoading(false);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchData();
-  }, [searchTerm]);
+  const { jobItems, isLoading } = useJobItems(searchTerm);
 
   return (
     <>
