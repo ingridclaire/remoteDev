@@ -1,10 +1,15 @@
+import { TJobItem } from "../lib/types";
 import JobItemContent from "./JobItemContent";
 import Sidebar from "./Sidebar";
 
-export default function Container() {
+type ContainerProps = {
+  jobItems: TJobItem[];
+};
+
+export default function Container({ jobItems }: ContainerProps) {
   return (
     <div className="container">
-      <Sidebar />
+      <Sidebar jobItems={jobItems} />
       <JobItemContent />
     </div>
   );

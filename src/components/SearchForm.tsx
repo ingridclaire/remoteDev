@@ -1,14 +1,14 @@
-import { useState } from "react";
+type SearachFormProps = {
+  searchTerm: string;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+};
 
-export default function SearchForm() {
-  const [searchTerm, setSearchTerm] = useState("");
-
+export default function SearchForm({
+  searchTerm,
+  setSearchTerm,
+}: SearachFormProps) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
   };
 
   return (
@@ -19,7 +19,7 @@ export default function SearchForm() {
 
       <input
         value={searchTerm}
-        onChange={handleChange}
+        onChange={(e) => setSearchTerm(e.target.value)}
         spellCheck="false"
         type="text"
         required
