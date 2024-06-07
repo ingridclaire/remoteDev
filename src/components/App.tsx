@@ -5,6 +5,9 @@ import Footer from "./Footer";
 import Header from "./Header";
 import { base_url } from "../lib/constants";
 import { TJobItem } from "../lib/types";
+import BookmarksButton from "./BookmarksButton";
+import Logo from "./Logo";
+import SearchForm from "./SearchForm";
 
 function App() {
   const [jobItems, setJobItems] = useState<TJobItem[]>([]);
@@ -28,7 +31,13 @@ function App() {
   return (
     <>
       <Background />
-      <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+      <Header>
+        <div className="header__top">
+          <Logo />
+          <BookmarksButton />
+        </div>
+        <SearchForm searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+      </Header>
       <Container jobItems={jobItems} />
       <Footer />
     </>
