@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { base_url } from "./constants";
-import { TJobItem } from "./types";
+import { TJobItem, TJobItemDetails } from "./types";
 
 export function useActiveId() {
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -22,7 +22,7 @@ export function useActiveId() {
 }
 
 export function useJobItem(id: string | null) {
-  const [jobItem, setJobItem] = useState<TJobItem | null>(null);
+  const [jobItem, setJobItem] = useState<TJobItemDetails | null>(null);
   const [isLoadingJobItem, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -37,6 +37,7 @@ export function useJobItem(id: string | null) {
         console.error(err);
       }
     };
+    if (!id) return;
     fetchData();
   }, [id]);
 

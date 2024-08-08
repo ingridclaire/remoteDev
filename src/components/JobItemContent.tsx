@@ -1,16 +1,18 @@
 import BookmarkIcon from "./BookmarkIcon";
-import { TJobItemDetails } from "../lib/types";
+import { useActiveId, useJobItem } from "../lib/hooks";
+import Spinner from "./Spinner";
 
-type JobItemContentProps = {
-  jobItem: TJobItemDetails | null;
-};
+export default function JobItemContent() {
+  const activeId = useActiveId();
+  const [jobItem, isLoadingJobItem] = useJobItem(activeId);
 
-export default function JobItemContent({ jobItem }: JobItemContentProps) {
   if (!jobItem) {
     return <EmptyJobContent />;
   }
+
   return (
     <section className="job-details">
+      {/* {isLoadingJobItem && <Spinner />} */}
       <div>
         <img src={jobItem.coverImgURL} alt="#" />
 
