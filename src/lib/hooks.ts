@@ -70,3 +70,19 @@ export function useJobItems(searchTerm: string) {
 
   return { jobItemsSliced, isLoading, totalNumberOfJobItems } as const;
 }
+
+export function useDebounce(value, delay: number) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+}
