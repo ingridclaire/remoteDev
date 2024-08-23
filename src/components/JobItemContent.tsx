@@ -4,7 +4,11 @@ import Spinner from "./Spinner";
 
 export default function JobItemContent() {
   const activeId = useActiveId();
-  const [jobItem, isLoadingJobItem] = useJobItem(activeId);
+  const { jobItem, isLoadingJobItem } = useJobItem(activeId);
+
+  if (isLoadingJobItem) {
+    return <LoadingJobItem />;
+  }
 
   if (!jobItem) {
     return <EmptyJobContent />;
@@ -12,7 +16,6 @@ export default function JobItemContent() {
 
   return (
     <section className="job-details">
-      {/* {isLoadingJobItem && <Spinner />} */}
       <div>
         <img src={jobItem.coverImgURL} alt="#" />
 
@@ -92,6 +95,16 @@ export default function JobItemContent() {
             it!
           </p>
         </footer>
+      </div>
+    </section>
+  );
+}
+
+function LoadingJobItem() {
+  return (
+    <section className="job-details">
+      <div>
+        <Spinner />
       </div>
     </section>
   );

@@ -3,11 +3,11 @@ import { base_url } from "./constants";
 import { TJobItem, TJobItemDetails } from "./types";
 
 export function useActiveId() {
-  const [activeId, setActiveId] = useState<string | null>(null);
+  const [activeId, setActiveId] = useState<number | null>(null);
 
   useEffect(() => {
     const handleHashChange = () => {
-      setActiveId(window.location.hash.slice(1));
+      setActiveId(parseInt(window.location.hash.slice(1)));
     };
 
     window.addEventListener("hashchange", handleHashChange);
@@ -21,7 +21,7 @@ export function useActiveId() {
   return activeId;
 }
 
-export function useJobItem(id: string | null) {
+export function useJobItem(id: number | null) {
   const [jobItem, setJobItem] = useState<TJobItemDetails | null>(null);
   const [isLoadingJobItem, setIsLoading] = useState(false);
 
@@ -41,13 +41,14 @@ export function useJobItem(id: string | null) {
     fetchData();
   }, [id]);
 
-  return [jobItem, isLoadingJobItem] as const;
+  return { jobItem, isLoadingJobItem } as const;
 }
 
 export function useJobItems(searchTerm: string) {
   const [jobItems, setJobItems] = useState<TJobItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const totalNumberOfJobItems = jobItems.length;
   const jobItemsSliced = jobItems.slice(0, 7);
 
   useEffect(() => {
@@ -67,5 +68,5 @@ export function useJobItems(searchTerm: string) {
     fetchData();
   }, [searchTerm]);
 
-  return [jobItemsSliced, isLoading] as const;
+  return { jobItemsSliced, isLoading, totalNumberOfJobItems } as const;
 }
